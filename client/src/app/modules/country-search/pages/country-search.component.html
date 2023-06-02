@@ -1,0 +1,42 @@
+<div class="content">
+  <h2>Country Search</h2>
+  <p>The value must be greater than or equal to 3 characters</p>
+  <div class="search-container">
+    <input
+      class="search-input"
+      type="text"
+      [(ngModel)]="searchValue"
+      placeholder="Search country"
+    />
+  </div>
+  <div>
+    <button class="search-button" (click)="searchCountries()">Search</button>
+  </div>
+  <div class="results-container">
+    <table class="countries-table" *ngIf="countries && countries.length > 0">
+      <thead>
+        <tr>
+          <th>Country Name</th>
+          <th>Population</th>
+          <th>Percentage of total population</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let country of countries">
+          <td>{{ country.name }}</td>
+          <td>{{ country.population }}</td>
+          <td>{{ country.percentage }}%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      class="message"
+      *ngIf="
+        (countries && countries.length === 0 && searchPerformed) ||
+        noResultsFound
+      "
+    >
+      <p>No results found</p>
+    </div>
+  </div>
+</div>

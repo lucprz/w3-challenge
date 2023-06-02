@@ -1,0 +1,15 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "quotes": ["error", "single"],
+    "no-console": ["error", { "allow": ["error", "info"] }],
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "import/no-dynamic-require": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "none"
+    }
+  }
+}

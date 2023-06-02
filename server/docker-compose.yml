@@ -1,0 +1,44 @@
+version: '3.9'
+networks:
+  w3-network:
+    driver: bridge
+
+services:
+  w3-challenge-server:
+    networks:
+      - w3-network
+    build: .
+    ports:
+      - '3000:3000'
+    links:
+      - w3-postgres-db
+    depends_on:
+      - w3-postgres-db
+  w3-challenge-client:
+    networks:
+      - w3-network
+    build:
+      context: ../client
+      dockerfile: Dockerfile
+    ports:
+      - '8080:80'
+    links:
+      - w3-challenge-server
+    depends_on:
+      - w3-challenge-server
+  w3-postgres-db:
+    networks:
+      - w3-network
+    image: postgres:15
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+volumes:
+  postgres-data:
